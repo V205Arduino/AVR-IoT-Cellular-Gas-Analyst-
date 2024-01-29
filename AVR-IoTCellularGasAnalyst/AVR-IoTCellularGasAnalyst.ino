@@ -140,9 +140,16 @@ void setup() {
     int AQI = myENS.getAQI();
     int TVOC = myENS.getTVOC();
     int ECO2 = myENS.getECO2();
-    String publishMessage = "{\"aqi\":"  + String(AQI)  +String(", \"tvoc\": ") +String(TVOC) +String(", \"ecotwo\": ") +String(ECO2)+ String("\"}");
+    int humidity = myBME280.readFloatHumidity();
+    int tempC = myBME280.readTempC();
+    bool warn = true;
+
+    
+    //String publishMessage = "{\"aqi\":"  + String(AQI)  +String(", \"tvoc\": ") +String(TVOC) +String(", \"ecotwo\": ") +String(ECO2)+ String("\"}");
+    String publishMessage = "{\"aqi\":"  + String(AQI)  +String(", \"tvoc\": ") +String(TVOC) +String(", \"eco2\": ") +String(ECO2)+ String(", \"hum\": ") +String(humidity) +String(", \"warn\": ") +String(warn)+ String(", \"tempC\": ") +String(tempC)+String("\"}");
+
     char publishMessageChar[30] = "";
-    publishMessage.toCharArray(publishMessageChar,30);
+    publishMessage.toCharArray(publishMessageChar,100);
 
 
     const bool published_successfully =
